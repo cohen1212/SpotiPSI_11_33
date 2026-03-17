@@ -7,7 +7,7 @@ import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 type Props = {
-    currentPage: string;
+    currentPage: Page;
     setCurrentPage: (page: Page) => void;
 };
 

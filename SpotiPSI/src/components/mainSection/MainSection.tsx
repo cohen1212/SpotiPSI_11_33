@@ -5,7 +5,7 @@ import type { Song, Page } from "../../types/types"
 
 interface Props {
     songs: Song[];
-    currentPage: string;
+    currentPage: Page;
     setCurrentPage: (page: Page) => void;
 }
 
@@ -15,7 +15,7 @@ const MainSection = ({ songs, currentPage, setCurrentPage }: Props) => {
     return (
         <div className={classes.mainSectionContainer}>
             <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            <PageContent songs={songs} />
+            <PageContent songs={songs} currentPage={currentPage} />
         </div>
     )
 }
