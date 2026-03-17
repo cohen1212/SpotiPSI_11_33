@@ -1,8 +1,10 @@
 import './App.css'
+import MainSection from './components/header/mainSection/MainSection'
 
-function App() {
+const App = () => {
   return (
     <>
+      <MainSection />
     </>
   )
 }
