@@ -6,7 +6,7 @@ const useStyles = makeStyles()(() => ({
         flexDirection: "column",
         width: "100%",
         height: "10%",
-        backgroundColor: "#121212",
+        backgroundColor: "#1D1D1D",
         alignItems: "center",
         justifyContent: "center"
     },
