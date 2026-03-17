@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchSongs from "./api/api";
-import type { Song } from "./types/types";
+import type { Song, Page } from "./types/types";
 import './App.css'
 import Header from './components/header/Header'
 import MainSection from './components/mainSection/MainSection'
@@ -9,7 +9,7 @@ import Player from './components/player/Player'
 
 const App = () => {
   const [songs, setSongs] = useState<Song[]>([]);
-  const [currentPage, setCurrentPage] = useState("allSongs");
+  const [currentPage, setCurrentPage] = useState<Page>("allSongs");
 
   useEffect(() => {
     const loadSongs = async () => {

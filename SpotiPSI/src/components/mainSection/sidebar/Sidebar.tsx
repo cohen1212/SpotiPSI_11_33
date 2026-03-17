@@ -1,5 +1,6 @@
 import useStyles from "./SidebarStyles";
 import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import type { Page } from "../../../types/types";
 
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
@@ -7,7 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 type Props = {
     currentPage: string;
-    setCurrentPage: (page: string) => void;
+    setCurrentPage: (page: Page) => void;
 };
 
 const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
