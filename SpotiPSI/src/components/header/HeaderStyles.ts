@@ -1,18 +1,15 @@
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
-    player: {
+    headerContainer: {
         display: "flex",
-        flexDirection: "column",
         width: "100%",
-        height: "10%",
-        backgroundColor: "#1D1D1D",
+        height: "5%",
+        backgroundColor: "#313131",
         alignItems: "center",
-        justifyContent: "center"
-    },
-    text:
-    {
-        color: "white"
+        paddingRight: "10px",
+        color: "#7E4F9D",
+        fontSize: "20px",
     },
 }));
 
