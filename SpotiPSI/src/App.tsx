@@ -9,6 +9,7 @@ import Player from './components/player/Player'
 
 const App = () => {
   const [songs, setSongs] = useState<Song[]>([]);
+  const [currentPage, setCurrentPage] = useState("allSongs");
 
   useEffect(() => {
     const loadSongs = async () => {
@@ -26,7 +27,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <MainSection songs={songs} />
+      <MainSection songs={songs} currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <Player />
     </>
   )
