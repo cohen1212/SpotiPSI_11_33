@@ -1,6 +1,6 @@
 import './App.css'
 import Header from './components/header/Header'
-import MainSection from './components/header/mainSection/MainSection'
+import MainSection from './components/mainSection/MainSection'
 import Player from './components/player/Player'
 
 
