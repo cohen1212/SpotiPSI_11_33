@@ -7,9 +7,12 @@ const useStyles = makeStyles()(() => ({
         height: "5%",
         backgroundColor: "#313131",
         alignItems: "center",
-        paddingRight: "10px",
         color: "#7E4F9D",
-        fontSize: "20px",
+
+        "& span": {
+            marginRight: "20px",
+            fontSize: "20px",
+        },
     },
 }));
 

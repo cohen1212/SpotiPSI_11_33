@@ -4,3 +4,5 @@ export type Song = {
     artist: string;
     album: string;
 };
+
+export type Page = "allSongs" | "playlists" | "favorites";

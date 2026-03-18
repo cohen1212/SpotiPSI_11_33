@@ -1,12 +1,12 @@
 import useStyles from "./MainSectionStyles"
 import Sidebar from "./sidebar/Sidebar"
 import PageContent from "./pageContent/PageContent"
-import type { Song } from "../../types/types"
+import type { Song, Page } from "../../types/types"
 
 interface Props {
     songs: Song[];
-    currentPage: string;
-    setCurrentPage: (page: string) => void;
+    currentPage: Page;
+    setCurrentPage: (page: Page) => void;
 }
 
 const MainSection = ({ songs, currentPage, setCurrentPage }: Props) => {
@@ -15,7 +15,7 @@ const MainSection = ({ songs, currentPage, setCurrentPage }: Props) => {
     return (
         <div className={classes.mainSectionContainer}>
             <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            <PageContent songs={songs} />
+            <PageContent songs={songs} currentPage={currentPage} />
         </div>
     )
 }
