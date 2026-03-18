@@ -1,15 +1,17 @@
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
-    /*
-    mainSectionContainer: {
+     allSongsContainer: {
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         width: "100%",
-        height: "85%",
-        backgroundColor: "#121212",
+        height: "100%",
+        color: "white",
+
+        "& h1": {
+            marginRight: "20px"
+        },
     },
-    */
 }));
 
 export default useStyles;

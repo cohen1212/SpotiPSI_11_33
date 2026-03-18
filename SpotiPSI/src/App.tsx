@@ -10,12 +10,12 @@ import Player from './components/player/Player'
 const App = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentPage, setCurrentPage] = useState<Page>("allSongs");
-  const [favoritesSongs, setFavorites] = useState([]);
+  const [favoritesSongs, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     const loadSongs = async () => {
       try {
-        const data = await fetchServer({url :"http://localhost:5001/api/songs"});
+        const data = await fetchServer({ url: "http://localhost:5001/api/songs" });
         setSongs(data);
       } catch (error) {
         console.error(error);
@@ -24,10 +24,13 @@ const App = () => {
 
     loadSongs();
   }, []);
+
+
   useEffect(() => {
     const loadFavorites = async () => {
       try {
-        const data = await fetchServer({url: "http://localhost:5001/api/favorites"});
+        const data = await fetchServer({ url: "http://localhost:5001/api/favorites" });
+        console.log(data)
         setFavorites(data);
       } catch (error) {
         console.error(error);
@@ -40,7 +43,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <MainSection songs={songs} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <MainSection songs={songs} currentPage={currentPage} favorites ={favoritesSongs} setCurrentPage={setCurrentPage} setFavorites={setFavorites} />
       <Player />
     </>
   )
