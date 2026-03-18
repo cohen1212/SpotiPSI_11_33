@@ -12,6 +12,11 @@ const MainSection = () => {
     const [currentPage, setCurrentPage] = useState<Page>("allSongs");
     const [favorites, setFavorites] = useState<string[]>([]);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
+    const [currectSong, setCurrectSong] = useState<Song | undefined>();
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
+    const [queue, setQueue] = useState<Song[]>([]);
+    const [currectTime, setCurrectTime] = useState<number>(0);
+    const [duration, setDuration] = useState<number | undefined>();
 
     useEffect(() => {
         const loadSongs = async () => {
