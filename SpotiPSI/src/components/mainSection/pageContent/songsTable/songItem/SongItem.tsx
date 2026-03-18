@@ -60,7 +60,7 @@ const SongItem = ({ song, setFavorites, favorites }: Props) => {
 
                 <IconButton >
                     {
-                        favorites.includes(song.id) ? <FavoriteIcon onClick={changeFavorite} /> : <FavoriteBorderIcon onClick={changeFavorite} />
+                        favorites.includes(song.id) ? <FavoriteIcon color="secondary" onClick={changeFavorite} /> : <FavoriteBorderIcon  onClick={changeFavorite} />
                     }
 
 

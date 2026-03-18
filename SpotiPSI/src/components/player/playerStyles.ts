@@ -8,8 +8,10 @@ const useStyles = makeStyles()(() => ({
         height: "10%",
         backgroundColor: "#1D1D1D",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        
     },
+    
     text:
     {
         color: "white"
