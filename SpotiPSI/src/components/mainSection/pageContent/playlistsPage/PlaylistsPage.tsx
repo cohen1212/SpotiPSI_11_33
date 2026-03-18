@@ -19,9 +19,12 @@ interface Props {
     songs: Song[];
     playlists: Playlist[];
     createPlaylist: (name: string) => Promise<void>;
+    onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    favorites: string[];
+    setFavorites: (favorites: string[]) => void;
 }
 
-const PlaylistsPage = ({ songs, playlists, createPlaylist }: Props) => {
+const PlaylistsPage = ({ songs, playlists, createPlaylist, onAddSongToPlaylist, favorites, setFavorites }: Props) => {
     const { classes } = useStyles();
     const [open, setOpen] = useState(false);
     const [dupError, setDupError] = useState("");
@@ -70,12 +73,19 @@ const PlaylistsPage = ({ songs, playlists, createPlaylist }: Props) => {
         setDupError("");
         console.log(name);
         handleClose();
-
     };
 
     if (selectedPlaylist) {
         return (
-            <ShowPlaylist playlistName={selectedPlaylist.name} songs={selectedPlaylistSongs} handlePlaylistClose={handlePlaylistClose} />
+            <ShowPlaylist
+                playlistName={selectedPlaylist.name}
+                songs={selectedPlaylistSongs}
+                handlePlaylistClose={handlePlaylistClose}
+                playlists={playlists}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+            />
         )
     }
 

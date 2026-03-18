@@ -1,10 +1,13 @@
 import useStyles from "./SidebarStyles";
 import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import type { Page } from "../../../types/types";
-
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import FavoriteIcon from "@mui/icons-material/Favorite";
+
+const allSongsText = "כל השירים";
+const playlistsText = "פלייליסטים";
+const favoritesText = "מועדפים";
 
 type Props = {
     currentPage: Page;
@@ -17,7 +20,6 @@ const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
     return (
         <div className={classes.sidebarContainer}>
             <List>
-
                 <ListItemButton
                     selected={currentPage === "allSongs"}
                     onClick={() => setCurrentPage("allSongs")}
@@ -25,7 +27,7 @@ const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="כל השירים" />
+                    <ListItemText primary={allSongsText} />
                 </ListItemButton>
 
                 <ListItemButton
@@ -35,7 +37,7 @@ const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
                     <ListItemIcon>
                         <LibraryMusicIcon />
                     </ListItemIcon>
-                    <ListItemText primary="פלייליסטים" />
+                    <ListItemText primary={playlistsText} />
                 </ListItemButton>
 
                 <ListItemButton
@@ -45,9 +47,8 @@ const Sidebar = ({ currentPage, setCurrentPage }: Props) => {
                     <ListItemIcon>
                         <FavoriteIcon />
                     </ListItemIcon>
-                    <ListItemText primary="מועדפים" />
+                    <ListItemText primary={favoritesText} />
                 </ListItemButton>
-
             </List>
         </div>
     );

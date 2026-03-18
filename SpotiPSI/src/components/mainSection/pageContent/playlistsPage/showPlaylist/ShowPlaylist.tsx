@@ -1,5 +1,5 @@
 import useStyles from "./ShowPlaylistStyles";
-import type { Song } from "../../../../../types/types";
+import type { Song, Playlist } from "../../../../../types/types";
 import SongsTable from "../../songsTable/SongsTable";
 import { IconButton, List, ListItem } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,9 +8,13 @@ interface Props {
     playlistName: string;
     songs: Song[];
     handlePlaylistClose: () => void;
+    favorites: string[];
+    setFavorites: (favorites: string[]) => void;
+    playlists: Playlist[];
+    onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
 }
 
-const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose }: Props) => {
+const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose, favorites, setFavorites, playlists, onAddSongToPlaylist }: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -23,7 +27,7 @@ const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose }: Props) => {
                     </IconButton>
                 </ListItem>
             </List>
-            <SongsTable songs={songs} />
+            <SongsTable songs={songs} favorites={favorites} setFavorites={setFavorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
         </div>
     );
 };

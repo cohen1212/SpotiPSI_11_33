@@ -11,23 +11,38 @@ interface Props {
     setFavorites: (favorites: string[]) => void;
     playlists: Playlist[];
     createPlaylist: (name: string) => Promise<void>;
+    onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
 }
 
-const PageContent = ({ songs, favorites, currentPage, setFavorites, playlists, createPlaylist }: Props) => {
+const PageContent = ({ songs, favorites, currentPage, setFavorites, playlists, createPlaylist, onAddSongToPlaylist }: Props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.pageContentContainer}>
-            {currentPage === "allSongs" && <AllSongsPage songs={songs} setFavorites={setFavorites} favorites={favorites} />}
+            {currentPage === "allSongs" && <AllSongsPage
+                songs={songs}
+                setFavorites={setFavorites}
+                favorites={favorites}
+                playlists={playlists}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+            />}
 
+            {currentPage === "playlists" && <PlaylistsPage
+                songs={songs}
+                playlists={playlists}
+                createPlaylist={createPlaylist}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+                favorites={favorites}
+                setFavorites={setFavorites}
+            />}
 
-            {currentPage === "playlists" && <PlaylistsPage songs={songs} playlists={playlists} createPlaylist={createPlaylist} />}
-
-            {currentPage === "favorites" && (
-                <div style={{ color: "white" }}>
-                    <FavoritesPage songs={songs} setFavorites={setFavorites} favorites={favorites} />
-                </div>
-            )}
+            {currentPage === "favorites" && <FavoritesPage
+                songs={songs}
+                setFavorites={setFavorites}
+                favorites={favorites}
+                playlists={playlists}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+            />}
         </div>
     );
 };

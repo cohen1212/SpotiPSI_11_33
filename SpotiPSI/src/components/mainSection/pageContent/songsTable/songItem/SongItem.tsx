@@ -1,71 +1,94 @@
+import * as React from 'react';
 import useStyles from "./SongItemStyles";
-import type { Song } from "../../../../../types/types";
-
-import { ListItem, ListItemText, IconButton } from "@mui/material";
-import { useState } from "react";
+import type { Song, Playlist } from "../../../../../types/types";
+import { ListItem, ListItemText, IconButton, Menu, MenuItem } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import fetchPostServer from "../../../../../api/ApiPost";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { fetchPostFavorites } from "../../../../../api/api";
 
 interface Props {
     song: Song;
     setFavorites: (favorites: string[]) => void;
     favorites: string[];
-
+    playlists: Playlist[];
+    onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
 }
 
-const SongItem = ({ song, setFavorites, favorites }: Props) => {
+const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylist }: Props) => {
     const { classes } = useStyles();
-    const [isFavorite, setIsFavorite] = useState<Boolean>(false);
+    const isFavorite = favorites.includes(song.id);
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
-    const changeFavorite = () => {
-        if (isFavorite) {
-            setIsFavorite(false)
-            const favoriteSongs = favorites.filter(favorite => favorite !== song.id);
-            setFavorites(favoriteSongs)
-            fetchPostServer({ url: "http://localhost:5001/api/favorites/remove", song: song })
+    const changeFavorite = async () => {
+        const previousFavorites = favorites;
 
+        try {
+            if (isFavorite) {
+                setFavorites(favorites.filter((favoriteId) => favoriteId !== song.id));
+                await fetchPostFavorites("/remove", song);
+                return;
+            }
 
+            setFavorites([...favorites, song.id]);
+            await fetchPostFavorites("/add", song);
+        } catch (error) {
+            console.error(error);
+            setFavorites(previousFavorites);
         }
-        else {
-            setIsFavorite(true)
-            setFavorites([...favorites, song.id])
-            fetchPostServer({ url: "http://localhost:5001/api/favorites/add", song: song })
+    };
 
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
 
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleAddToPlaylist = async (playlistId: string) => {
+        try {
+            await onAddSongToPlaylist(song.id, playlistId);
+            handleMenuClose();
+        } catch (error) {
+            console.error(error);
         }
-
-
-        //isFavorite ? setFavorites() :setFavorites(favorites);
-    }
+    };
 
     return (
         <div className={classes.songItemContainer}>
             <ListItem divider>
-
-                <IconButton >
+                <IconButton>
                     <PlayArrowIcon className={classes.playBtn} />
                 </IconButton>
 
-                <ListItemText
-                    primary={song.name + " - " + song.artist}
-                />
+                <ListItemText primary={`${song.name} - ${song.artist}`} />
 
-                <IconButton>
+                <IconButton onClick={handleMenuOpen}>
                     <AddIcon />
                 </IconButton>
 
-                <IconButton >
-                    {
-                        favorites.includes(song.id) ? <FavoriteIcon onClick={changeFavorite} /> : <FavoriteBorderIcon onClick={changeFavorite} />
-                    }
+                <Menu
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleMenuClose}
+                >
+                    {playlists.map((playlist) => (
+                        <MenuItem
+                            key={playlist.id}
+                            onClick={() => handleAddToPlaylist(playlist.id)}
+                        >
+                            {playlist.name}
+                        </MenuItem>
+                    ))}
+                </Menu>
 
-
+                <IconButton onClick={changeFavorite}>
+                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
-
             </ListItem>
         </div>
     );
