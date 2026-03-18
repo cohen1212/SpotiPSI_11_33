@@ -1,5 +1,11 @@
-const fetchSongs = async () => {
-  const response = await fetch("http://localhost:5001/api/songs");
+
+interface Props {
+  url: string;
+}
+
+
+const fetchServer = async (props: Props) => {
+  const response = await fetch(props.url);
 
   if (!response.ok) {
     throw new Error("Failed to fetch songs");
@@ -8,4 +14,4 @@ const fetchSongs = async () => {
   return response.json();
 };
 
-export default fetchSongs;
+export default fetchServer;

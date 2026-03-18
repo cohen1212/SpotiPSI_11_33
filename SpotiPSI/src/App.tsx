@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import fetchSongs from "./api/api";
+import fetchServer from "./api/api";
 import type { Song, Page } from "./types/types";
 import './App.css'
 import Header from './components/header/Header'
@@ -10,11 +10,12 @@ import Player from './components/player/Player'
 const App = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentPage, setCurrentPage] = useState<Page>("allSongs");
+  const [favoritesSongs, setFavorites] = useState([]);
 
   useEffect(() => {
     const loadSongs = async () => {
       try {
-        const data = await fetchSongs();
+        const data = await fetchServer({url :"http://localhost:5001/api/songs"});
         setSongs(data);
       } catch (error) {
         console.error(error);
@@ -22,6 +23,18 @@ const App = () => {
     };
 
     loadSongs();
+  }, []);
+  useEffect(() => {
+    const loadFavorites = async () => {
+      try {
+        const data = await fetchServer({url: "http://localhost:5001/api/favorites"});
+        setFavorites(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadFavorites();
   }, []);
 
   return (
