@@ -6,11 +6,15 @@ import Header from './components/header/Header'
 import MainSection from './components/mainSection/MainSection'
 import Player from './components/player/Player'
 
-
 const App = () => {
   const [songs, setSongs] = useState<Song[]>([]);
   const [currentPage, setCurrentPage] = useState<Page>("allSongs");
   const [favoritesSongs, setFavorites] = useState<string[]>([]);
+  const [currectSong, setCurrectSong] = useState<Song | undefined>();
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [queue, setQueue] = useState<Song[]>([]);
+  const [currectTime, setCurrectTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number | undefined>();
 
   useEffect(() => {
     const loadSongs = async () => {
@@ -24,7 +28,6 @@ const App = () => {
 
     loadSongs();
   }, []);
-
 
   useEffect(() => {
     const loadFavorites = async () => {
@@ -43,7 +46,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <MainSection songs={songs} currentPage={currentPage} favorites ={favoritesSongs} setCurrentPage={setCurrentPage} setFavorites={setFavorites} />
+      <MainSection songs={songs} currentPage={currentPage} favorites={favoritesSongs} setCurrentPage={setCurrentPage} setFavorites={setFavorites} />
       <Player />
     </>
   )
