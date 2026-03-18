@@ -70,7 +70,6 @@ const PlaylistsPage = ({ songs, playlists, createPlaylist }: Props) => {
         setDupError("");
         console.log(name);
         handleClose();
-
     };
 
     if (selectedPlaylist) {

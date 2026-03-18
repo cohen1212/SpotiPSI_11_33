@@ -1,13 +1,11 @@
+import type { Song } from "../types/types";
 
+const urlBase = "http://localhost:5001/api";
+const postPlaylistApi = "/playlists"
+const favoritesApi = "/favorites"
 
-
-interface Props {
-  url: string;
-}
-
-
-export const fetchServer = async ({ url }: Props) => {
-  const response = await fetch(url);
+export const fetchServer = async (urlAddition: string) => {
+  const response = await fetch(`${urlBase}${urlAddition}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch songs");
@@ -17,7 +15,7 @@ export const fetchServer = async ({ url }: Props) => {
 };
 
 export const postPlaylist = async (name: string) => {
-  const res = await fetch("http://127.0.0.1:5001/api/playlists", {
+  const res = await fetch(`${urlBase}${postPlaylistApi}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -30,4 +28,20 @@ export const postPlaylist = async (name: string) => {
   }
 
   return res.json();
+};
+
+export const fetchPostFavorites = async (urlAddition: string, song: Song) => {
+  fetch(`${urlBase}${favoritesApi}${urlAddition}`, {
+    method: "POST",
+    body: JSON.stringify({
+      songId: song.id,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+
+    .then(response => response.json())
+
+    .then(json => console.log(json));
 };

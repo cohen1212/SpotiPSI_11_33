@@ -1,71 +1,56 @@
 import useStyles from "./SongItemStyles";
 import type { Song } from "../../../../../types/types";
-
 import { ListItem, ListItemText, IconButton } from "@mui/material";
-import { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import fetchPostServer from "../../../../../api/ApiPost";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { fetchPostFavorites } from "../../../../../api/api";
 
 interface Props {
     song: Song;
     setFavorites: (favorites: string[]) => void;
     favorites: string[];
-
 }
 
 const SongItem = ({ song, setFavorites, favorites }: Props) => {
     const { classes } = useStyles();
-    const [isFavorite, setIsFavorite] = useState<Boolean>(false);
+    const isFavorite = favorites.includes(song.id);
 
+    const changeFavorite = async () => {
+        const previousFavorites = favorites;
 
-    const changeFavorite = () => {
-        if (isFavorite) {
-            setIsFavorite(false)
-            const favoriteSongs = favorites.filter(favorite => favorite !== song.id);
-            setFavorites(favoriteSongs)
-            fetchPostServer({ url: "http://localhost:5001/api/favorites/remove", song: song })
+        try {
+            if (isFavorite) {
+                setFavorites(favorites.filter((favoriteId) => favoriteId !== song.id));
+                await fetchPostFavorites("/remove", song);
+                return;
+            }
 
-
+            setFavorites([...favorites, song.id]);
+            await fetchPostFavorites("/add", song);
+        } catch (error) {
+            console.error(error);
+            setFavorites(previousFavorites);
         }
-        else {
-            setIsFavorite(true)
-            setFavorites([...favorites, song.id])
-            fetchPostServer({ url: "http://localhost:5001/api/favorites/add", song: song })
-
-
-        }
-
-
-        //isFavorite ? setFavorites() :setFavorites(favorites);
-    }
+    };
 
     return (
         <div className={classes.songItemContainer}>
             <ListItem divider>
-
-                <IconButton >
+                <IconButton>
                     <PlayArrowIcon className={classes.playBtn} />
                 </IconButton>
 
-                <ListItemText
-                    primary={song.name + " - " + song.artist}
-                />
+                <ListItemText primary={`${song.name} - ${song.artist}`} />
 
                 <IconButton>
                     <AddIcon />
                 </IconButton>
 
-                <IconButton >
-                    {
-                        favorites.includes(song.id) ? <FavoriteIcon onClick={changeFavorite} /> : <FavoriteBorderIcon onClick={changeFavorite} />
-                    }
-
-
+                <IconButton onClick={changeFavorite}>
+                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>
-
             </ListItem>
         </div>
     );

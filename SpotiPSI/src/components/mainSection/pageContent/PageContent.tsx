@@ -20,14 +20,9 @@ const PageContent = ({ songs, favorites, currentPage, setFavorites, playlists, c
         <div className={classes.pageContentContainer}>
             {currentPage === "allSongs" && <AllSongsPage songs={songs} setFavorites={setFavorites} favorites={favorites} />}
 
-
             {currentPage === "playlists" && <PlaylistsPage songs={songs} playlists={playlists} createPlaylist={createPlaylist} />}
 
-            {currentPage === "favorites" && (
-                <div style={{ color: "white" }}>
-                    <FavoritesPage songs={songs} setFavorites={setFavorites} favorites={favorites} />
-                </div>
-            )}
+            {currentPage === "favorites" && <FavoritesPage songs={songs} setFavorites={setFavorites} favorites={favorites} />}
         </div>
     );
 };

@@ -8,9 +8,11 @@ interface Props {
     playlistName: string;
     songs: Song[];
     handlePlaylistClose: () => void;
+    favorites: string[];
+    setFavorites: (favorites: string[]) => void;
 }
 
-const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose }: Props) => {
+const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose, favorites, setFavorites }: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -23,7 +25,7 @@ const ShowPlaylist = ({ playlistName, songs, handlePlaylistClose }: Props) => {
                     </IconButton>
                 </ListItem>
             </List>
-            <SongsTable songs={songs} />
+            <SongsTable songs={songs} favorites={favorites} setFavorites={setFavorites} />
         </div>
     );
 };

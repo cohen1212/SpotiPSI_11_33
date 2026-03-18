@@ -1,8 +1,6 @@
 import type { Song } from "../../../../types/types";
-
 import { List } from "@mui/material";
 import SongItem from "./songItem/SongItem";
-
 
 interface Props {
     songs: Song[];
@@ -11,7 +9,6 @@ interface Props {
 }
 
 const SongsTable = ({ songs, setFavorites, favorites }: Props) => {
-
     return (
         <List>
             {songs.map((song) => (
