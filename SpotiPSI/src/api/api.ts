@@ -1,10 +1,11 @@
 
+
+
 interface Props {
   url: string;
 }
 
-
-const fetchServer = async ({url}: Props) => {
+const fetchServer = async ({ url }: Props) => {
   const response = await fetch(url);
 
   if (!response.ok) {

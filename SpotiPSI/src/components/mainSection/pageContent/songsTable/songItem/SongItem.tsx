@@ -7,6 +7,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import fetchPostServer from "../../../../../api/ApiPost";
 
 interface Props {
     song: Song;
@@ -20,11 +21,24 @@ const SongItem = ({ song, setFavorites, favorites }: Props) => {
     const [isFavorite, setIsFavorite] = useState<Boolean>(false);
 
 
-    const addFavorite = () => {
+    const changeFavorite = () => {
+        if (isFavorite) {
+            setIsFavorite(false)
+            const favoriteSongs = favorites.filter(favorite => favorite !== song.id);
+            setFavorites(favoriteSongs)
+            fetchPostServer({ url: "http://localhost:5001/api/favorites/remove", song: song })
 
-        isFavorite ? setIsFavorite(false) : setIsFavorite(true)
-        const favoriteSongs = favorites.filter(favorite => favorite !== song.id);
-        isFavorite ? setFavorites([...favorites, song.id]) : setFavorites(favoriteSongs)
+
+        }
+        else {
+            setIsFavorite(true)
+            setFavorites([...favorites, song.id])
+            fetchPostServer({ url: "http://localhost:5001/api/favorites/add", song: song })
+
+
+        }
+
+
         //isFavorite ? setFavorites() :setFavorites(favorites);
     }
 
@@ -46,7 +60,7 @@ const SongItem = ({ song, setFavorites, favorites }: Props) => {
 
                 <IconButton >
                     {
-                        isFavorite ? <FavoriteIcon onClick={addFavorite} /> : <FavoriteBorderIcon onClick={addFavorite} />
+                        favorites.includes(song.id) ? <FavoriteIcon onClick={changeFavorite} /> : <FavoriteBorderIcon onClick={changeFavorite} />
                     }
 
 

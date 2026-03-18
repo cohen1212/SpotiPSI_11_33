@@ -6,11 +6,11 @@ import SongItem from "./songItem/SongItem";
 
 interface Props {
     songs: Song[];
-    setFavorites : (favorites: string[]) => void;
+    setFavorites: (favorites: string[]) => void;
     favorites: string[]
 }
 
-const SongsTable = ({ songs , setFavorites , favorites }: Props) => {
+const SongsTable = ({ songs, setFavorites, favorites }: Props) => {
 
     return (
         <List>

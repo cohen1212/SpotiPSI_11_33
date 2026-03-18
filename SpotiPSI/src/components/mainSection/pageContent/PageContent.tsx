@@ -11,7 +11,7 @@ interface Props {
     setFavorites: (favorites: string[]) => void;
 }
 
-const PageContent = ({ songs, favorites,currentPage ,setFavorites  }: Props) => {
+const PageContent = ({ songs, favorites, currentPage, setFavorites }: Props) => {
     const { classes } = useStyles();
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const PageContent = ({ songs, favorites,currentPage ,setFavorites  }: Props) => 
 
             {currentPage === "favorites" && (
                 <div style={{ color: "white" }}>
-                    <FavoritesPage songs={songs} favorites={favorites} />
+                    <FavoritesPage songs={songs} setFavorites={setFavorites} favorites={favorites} />
                 </div>
             )}
         </div>
