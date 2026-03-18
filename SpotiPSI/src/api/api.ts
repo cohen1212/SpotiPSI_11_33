@@ -4,8 +4,8 @@ interface Props {
 }
 
 
-const fetchServer = async (props: Props) => {
-  const response = await fetch(props.url);
+const fetchServer = async ({url}: Props) => {
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error("Failed to fetch songs");
