@@ -1,8 +1,9 @@
 import type { Song } from "../types/types";
 
 const urlBase = "http://localhost:5001/api";
-const postPlaylistApi = "/playlists"
-const favoritesApi = "/favorites"
+const postPlaylistApi = "/playlists";
+const favoritesApi = "/favorites";
+const addToPlaylistApi = "/add";
 
 export const fetchServer = async (urlAddition: string) => {
   const response = await fetch(`${urlBase}${urlAddition}`);
@@ -44,4 +45,20 @@ export const fetchPostFavorites = async (urlAddition: string, song: Song) => {
     .then(response => response.json())
 
     .then(json => console.log(json));
+};
+
+export const postSongToPlaylist = async (songId: string, playlistId: string) => {
+  const res = await fetch(`${urlBase}${postPlaylistApi}/${playlistId}${addToPlaylistApi}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ songId }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to add song to playlist");
+  }
+
+  return res.json();
 };

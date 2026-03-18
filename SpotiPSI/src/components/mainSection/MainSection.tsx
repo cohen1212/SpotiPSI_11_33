@@ -3,7 +3,7 @@ import Sidebar from "./sidebar/Sidebar"
 import PageContent from "./pageContent/PageContent"
 import { useState, useEffect } from "react"
 import type { Song, Page, Playlist } from "../../types/types"
-import { fetchServer, postPlaylist } from "../../api/api"
+import { fetchServer, postPlaylist, postSongToPlaylist } from "../../api/api"
 
 const MainSection = () => {
     const { classes } = useStyles()
@@ -62,10 +62,31 @@ const MainSection = () => {
         }
     };
 
+    const addSongToPlaylist = async (songId: string, playlistId: string) => {
+        await postSongToPlaylist(songId, playlistId);
+
+        const updatedPlaylists = playlists.map((playlist) => {
+            if (playlist.id !== playlistId) {
+                return playlist;
+            }
+
+            if (playlist.songIds.includes(songId)) {
+                return playlist;
+            }
+
+            return {
+                ...playlist,
+                songIds: [...playlist.songIds, songId],
+            };
+        });
+
+        setPlaylists(updatedPlaylists);
+    };
+
     return (
         <div className={classes.mainSectionContainer}>
             <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            <PageContent songs={songs} favorites={favorites} currentPage={currentPage} setFavorites={setFavorites} playlists={playlists} createPlaylist={createPlaylist} />
+            <PageContent songs={songs} favorites={favorites} currentPage={currentPage} setFavorites={setFavorites} playlists={playlists} createPlaylist={createPlaylist} onAddSongToPlaylist={addSongToPlaylist} />
         </div >
     )
 }
