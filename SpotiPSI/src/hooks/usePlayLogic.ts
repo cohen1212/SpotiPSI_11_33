@@ -1,39 +1,35 @@
 import { useEffect, useState, useRef } from "react";
 import type { Song } from "../types/types";
 
-
 type ReturnObj = {
-    currectSong: Song,
+    currentSong: Song | null,
     isPlaying: boolean,
-    currectTime: number,
+    currentTime: number,
     duration: number,
+    playAudio: (song: Song) => void;
     playNext: () => void;
     playPrevious: () => void;
     togglePlayPause: () => void;
-    playAudio: () => void;
-    createAudio: () => void;
 }
 
-const usePlayLogic = (songs: Song[]) => {
-    const [currectSong, setCurrectSong] = useState<Song | undefined>();
+const usePlayLogic = (songs: Song[]): ReturnObj => {
+    const [currentSong, setCurrentSong] = useState<Song | null>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [currentTime, setCurrectTime] = useState<number>(0);
-    const [duration, setDuration] = useState<number | undefined>();
+    const [currentTime, setCurrentTime] = useState<number>(0);
+    const [duration, setDuration] = useState<number>(0);
 
-
-    let audioRef = useRef<HTMLAudioElement | null>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const playNext = () => {
-        currectSong?.id !== undefined ? setCurrectSong(songs[Number[currectSong.id] + 1]) : null
+        currentSong?.id ? setCurrentSong(songs[Number(currentSong.id) + 1]) : null
     }
+
     const playPrevious = () => {
-        setCurrectSong(songs[Number(currectSong?.id) + 1])
+        currentSong?.id ? setCurrentSong(songs[Number(currentSong.id) - 1]) : null
     }
+
     const togglePlayPause = () => {
-        setIsPlaying(!isPlaying)
-    }
-    const updateSong = (song: Song) => {
-        setCurrectSong(song)
+        setIsPlaying((prev) => !prev)
     }
 
     useEffect(() => {
@@ -46,25 +42,35 @@ const usePlayLogic = (songs: Song[]) => {
             audioRef.current = null;
 
         }
-        const audioElement =  new Audio(`/songs/${song.id}.mp3`);
+        const audioElement = new Audio(`/songs/${song.id}.mp3`);
         audioRef.current = audioElement;
+        return audioElement;
     }
-    const playAudio = () => {
-        audioRef.current?.play()
+
+    const playAudio = (song: Song) => {
+        if (currentSong?.id === song.id) {
+            setIsPlaying(true);
+            return;
+        }
+
+        setCurrentSong(song);
+        setCurrentTime(0);
+        setDuration(0);
+        setIsPlaying(true);
     }
 
     audioRef.current?.addEventListener("loadedmetadata", (event) => {
         let duration = audioRef.current?.duration;
-        setDuration(duration)
+        duration ? setDuration(duration) : null
     });
-    audioRef.current?.addEventListener("updateTime", (event) => {
-        setCurrectTime(Number(audioRef.current?.currentTime))
+    audioRef.current?.addEventListener("timeupdate", (event) => {
+        setCurrentTime(Number(audioRef.current?.currentTime))
     });
     audioRef.current?.addEventListener("ended", (event) => {
-        if (duration !== undefined) currentTime >= duration ? setCurrectSong(songs[Number(currectSong?.id) + 1]) : null
+        Number(currentSong?.id) == songs.length - 1 ? setCurrentSong(songs[Number(currentSong?.id) + 1]) : setCurrentSong(songs[0])
     });
 
-    return { currectSong, isPlaying, currentTime, duration, playNext, playPrevious, togglePlayPause, updateSong };
+    return { currentSong, isPlaying, currentTime, duration, playAudio, playNext, playPrevious, togglePlayPause };
 }
 
 export default usePlayLogic;
