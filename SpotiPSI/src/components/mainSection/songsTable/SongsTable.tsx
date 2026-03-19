@@ -1,4 +1,4 @@
-import type { Song, Playlist } from "../../../../types/types";
+import type { Song, Playlist } from "../../../types/types";
 import { List } from "@mui/material";
 import SongItem from "./songItem/SongItem";
 

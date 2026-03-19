@@ -46,6 +46,20 @@ const useStyles = makeStyles()(() => ({
         color: "#9757B2",
     },
 
+    menu: {
+
+        "& .MuiPaper-root": {
+            borderRadius: "10px",
+            backgroundColor: "#383838",
+            width: "100px",
+            color: "white",
+        },
+
+        "& .MuiButtonBase-root:hover": {
+            backgroundColor: "#484848",
+            borderRadius: "10px",
+        }
+    },
 }));
 
 export default useStyles;
