@@ -18,7 +18,13 @@ const AllSongsPage = ({ songs, setFavorites, favorites, playlists, onAddSongToPl
     return (
         <div className={classes.allSongsContainer}>
             <h1>{pageTitle}</h1>
-            <SongsTable songs={songs} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
+            <SongsTable
+                songs={songs}
+                setFavorites={setFavorites}
+                favorites={favorites}
+                playlists={playlists}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+            />
         </div>
     );
 };

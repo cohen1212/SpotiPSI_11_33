@@ -14,7 +14,14 @@ const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlay
     return (
         <List>
             {songs.map((song) => (
-                <SongItem key={song.id} song={song} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
+                <SongItem
+                    key={song.id}
+                    song={song}
+                    setFavorites={setFavorites}
+                    favorites={favorites}
+                    playlists={playlists}
+                    onAddSongToPlaylist={onAddSongToPlaylist}
+                />
             ))}
         </List>
     );

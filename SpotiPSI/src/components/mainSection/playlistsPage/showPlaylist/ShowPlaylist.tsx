@@ -15,7 +15,7 @@ interface Props {
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
 }
 
-const ShowPlaylist = ({ songs, favorites, setFavorites, playlists, onAddSongToPlaylist, }: Props) => {
+const ShowPlaylist = ({ songs, favorites, setFavorites, playlists, onAddSongToPlaylist }: Props) => {
     const { classes } = useStyles();
     const navigate = useNavigate();
     const { playlistId } = useParams();

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
 import { Slider, IconButton } from "@mui/material";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import useStyles from "./playerStyles";
+import { useState } from "react";
 
-const playerText = "נגן שירים";
+const emptyPlayerText = "נגן שירים";
 
-const Player: React.FC = () => {
+const Player = () => {
     const { classes } = useStyles();
     const [isPlay, setIsPlay] = useState(false);
 
@@ -18,7 +18,7 @@ const Player: React.FC = () => {
 
     return (
         <footer className={classes.player}>
-            <p className={classes.text}>{playerText}</p>
+            <p className={classes.text}>{emptyPlayerText}</p>
 
             <div className={classes.playerBtns}>
                 <IconButton>
@@ -34,7 +34,13 @@ const Player: React.FC = () => {
                 </IconButton>
             </div>
 
-            <Slider className={classes.slider} defaultValue={50} color="secondary" />
+            <Slider
+                className={classes.slider}
+                value={0}
+                min={0}
+                max={100}
+                color="secondary"
+            />
         </footer>
     );
 };
