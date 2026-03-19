@@ -9,6 +9,7 @@ import ShowPlaylist from "./playlistsPage/showPlaylist/ShowPlaylist";
 import ErrorPage from "../errorPage/ErrorPage";
 import type { Song, Playlist } from "../../types/types";
 
+
 interface Props {
     songs: Song[];
     favorites: string[];
@@ -16,10 +17,13 @@ interface Props {
     playlists: Playlist[];
     createPlaylist: (playlistName: string) => Promise<void>;
     addSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    createAudio: (song: Song) => void;
+    playAudio: (song: Song) => void;
 }
 
-const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist, addSongToPlaylist }: Props) => {
+const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist, addSongToPlaylist ,createAudio,playAudio}: Props) => {
     const { classes } = useStyles();
+
 
     return (
         <div className={classes.mainSectionContainer}>
@@ -36,6 +40,8 @@ const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist
                                 setFavorites={setFavorites}
                                 playlists={playlists}
                                 onAddSongToPlaylist={addSongToPlaylist}
+                                createAudio={createAudio}
+                                playAudio={playAudio}
                             />
                         }
                     />

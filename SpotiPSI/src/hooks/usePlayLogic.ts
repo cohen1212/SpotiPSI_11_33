@@ -21,11 +21,13 @@ const usePlayLogic = (songs: Song[]): ReturnObj => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const playNext = () => {
-        currentSong?.id ? setCurrentSong(songs[Number(currentSong.id) + 1]) : null
+        currentSong?.id ? songs.indexOf(currentSong) === songs.length - 1 ?
+            playAudio(songs[0]) : playAudio(songs[songs.indexOf(currentSong) + 1]) : null
     }
 
     const playPrevious = () => {
-        currentSong?.id ? setCurrentSong(songs[Number(currentSong.id) - 1]) : null
+        currentSong?.id ? songs.indexOf(currentSong) === 0 ?
+            playAudio(songs[songs.length - 1]) : playAudio(songs[songs.indexOf(currentSong) - 1]) : null
     }
 
     const togglePlayPause = () => {
@@ -44,7 +46,6 @@ const usePlayLogic = (songs: Song[]): ReturnObj => {
         }
         const audioElement = new Audio(`/songs/${song.id}.mp3`);
         audioRef.current = audioElement;
-        return audioElement;
     }
 
     const playAudio = (song: Song) => {
@@ -53,22 +54,42 @@ const usePlayLogic = (songs: Song[]): ReturnObj => {
             return;
         }
 
+        createAudio(song)
         setCurrentSong(song);
         setCurrentTime(0);
         setDuration(0);
         setIsPlaying(true);
     }
 
-    audioRef.current?.addEventListener("loadedmetadata", (event) => {
-        let duration = audioRef.current?.duration;
-        duration ? setDuration(duration) : null
-    });
-    audioRef.current?.addEventListener("timeupdate", (event) => {
-        setCurrentTime(Number(audioRef.current?.currentTime))
-    });
-    audioRef.current?.addEventListener("ended", (event) => {
-        Number(currentSong?.id) == songs.length - 1 ? setCurrentSong(songs[Number(currentSong?.id) + 1]) : setCurrentSong(songs[0])
-    });
+    useEffect(() => {
+        const audio = audioRef.current;
+
+        if (!audio) {
+            return;
+        }
+
+        const handleLoadedMetadata = () => {
+            setDuration(audio.duration || 0);
+        };
+
+        const handleTimeUpdate = () => {
+            setCurrentTime(audio.currentTime || 0);
+        };
+
+        const handleEnded = () => {
+            playNext();
+        };
+
+        audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+        audio.addEventListener("timeupdate", handleTimeUpdate);
+        audio.addEventListener("ended", handleEnded);
+
+        return () => {
+            audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+            audio.removeEventListener("timeupdate", handleTimeUpdate);
+            audio.removeEventListener("ended", handleEnded);
+        };
+    }, [currentSong]);
 
     return { currentSong, isPlaying, currentTime, duration, playAudio, playNext, playPrevious, togglePlayPause };
 }

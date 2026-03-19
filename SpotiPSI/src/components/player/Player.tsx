@@ -7,13 +7,19 @@ import useStyles from "./playerStyles";
 import { useState } from "react";
 
 const emptyPlayerText = "נגן שירים";
-
-const Player = () => {
+interface Props {
+    playNext: () => void;
+    playPrevious: () => void;
+    togglePlayPause: () => void;
+    isPlay: boolean
+    
+}
+const Player = ( {playNext ,playPrevious , togglePlayPause , isPlay}:Props) => {
     const { classes } = useStyles();
-    const [isPlay, setIsPlay] = useState(false);
 
     const handlePlayToggle = () => {
-        setIsPlay((prev) => !prev);
+        togglePlayPause()
+    
     };
 
     return (
@@ -21,7 +27,7 @@ const Player = () => {
             <p className={classes.text}>{emptyPlayerText}</p>
 
             <div className={classes.playerBtns}>
-                <IconButton>
+                <IconButton onClick={playNext}>
                     <SkipNextIcon fontSize="large" />
                 </IconButton>
 
@@ -29,7 +35,7 @@ const Player = () => {
                     {isPlay ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
                 </IconButton>
 
-                <IconButton>
+                <IconButton onClick={playPrevious}>
                     <SkipPreviousIcon fontSize="large" />
                 </IconButton>
             </div>
