@@ -10,15 +10,20 @@ interface Props {
     favorites: string[]
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+     setCurrectSong: (currectSong: Song | undefined) => void;
+    setQueueSongs: (songs: Song[]) => void;
+    setIsPlaying: (isPlaying: boolean) => void;
 }
 
-const AllSongsPage = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist }: Props) => {
+const AllSongsPage = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist , setCurrectSong ,setIsPlaying , setQueueSongs}: Props) => {
+
     const { classes } = useStyles();
 
     return (
         <div className={classes.allSongsContainer}>
             <h1>{pageTitle}</h1>
-            <SongsTable songs={songs} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
+            <SongsTable songs={songs} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} setCurrectSong={setCurrectSong} setIsPlaying={setIsPlaying} setQueueSongs={setQueueSongs} />
+
         </div>
     );
 };

@@ -12,9 +12,14 @@ interface Props {
     playlists: Playlist[];
     createPlaylist: (name: string) => Promise<void>;
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    setCurrectSong: (currectSong: Song | undefined) => void;
+    setQueueSongs: (songs: Song[]) => void;
+    setIsPlaying: (isPlaying: boolean) => void;
 }
 
-const PageContent = ({ songs, favorites, currentPage, setFavorites, playlists, createPlaylist, onAddSongToPlaylist }: Props) => {
+
+
+const PageContent = ({ songs, favorites, currentPage, setFavorites , playlists, createPlaylist, onAddSongToPlaylist , setCurrectSong ,setIsPlaying , setQueueSongs}: Props) => {
     const { classes } = useStyles();
 
     return (
@@ -25,6 +30,9 @@ const PageContent = ({ songs, favorites, currentPage, setFavorites, playlists, c
                 favorites={favorites}
                 playlists={playlists}
                 onAddSongToPlaylist={onAddSongToPlaylist}
+                setCurrectSong={setCurrectSong} 
+                setIsPlaying={setIsPlaying} 
+                setQueueSongs={setQueueSongs}
             />}
 
             {currentPage === "playlists" && <PlaylistsPage

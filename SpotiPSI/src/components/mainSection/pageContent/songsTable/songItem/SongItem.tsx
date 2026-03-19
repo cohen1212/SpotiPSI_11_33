@@ -14,9 +14,12 @@ interface Props {
     favorites: string[];
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    setCurrectSong: (currectSong: Song | undefined) => void;
+    setIsPlaying: (isPlaying: boolean) => void;
 }
+const mp3lUrl: string = '../../../../../../public/songs'
 
-const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylist }: Props) => {
+const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylist, setCurrectSong, setIsPlaying }: Props) => {
     const { classes } = useStyles();
     const isFavorite = favorites.includes(song.id);
 
@@ -57,11 +60,17 @@ const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylis
             console.error(error);
         }
     };
+    const playSong = () => {
+        setIsPlaying(true)
+        setCurrectSong(song)
+        const playSong = new Audio(`${mp3lUrl}/${song.id}.mp3`);
+        playSong.play();
+    }
 
     return (
         <div className={classes.songItemContainer}>
             <ListItem divider>
-                <IconButton>
+                <IconButton onClick={playSong}>
                     <PlayArrowIcon className={classes.playBtn} />
                 </IconButton>
 

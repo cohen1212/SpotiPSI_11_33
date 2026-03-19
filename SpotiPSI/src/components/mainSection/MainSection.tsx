@@ -7,14 +7,13 @@ import { fetchServer, postPlaylist, postSongToPlaylist } from "../../api/api"
 
 const MainSection = () => {
     const { classes } = useStyles()
-
     const [songs, setSongs] = useState<Song[]>([]);
     const [currentPage, setCurrentPage] = useState<Page>("allSongs");
     const [favorites, setFavorites] = useState<string[]>([]);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
     const [currectSong, setCurrectSong] = useState<Song | undefined>();
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
-    const [queue, setQueue] = useState<Song[]>([]);
+    const [queue, setQueueSongs] = useState<Song[]>([]);
     const [currectTime, setCurrectTime] = useState<number>(0);
     const [duration, setDuration] = useState<number | undefined>();
 
@@ -91,8 +90,9 @@ const MainSection = () => {
     return (
         <div className={classes.mainSectionContainer}>
             <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            <PageContent songs={songs} favorites={favorites} currentPage={currentPage} setFavorites={setFavorites} playlists={playlists} createPlaylist={createPlaylist} onAddSongToPlaylist={addSongToPlaylist} />
+            <PageContent songs={songs} favorites={favorites} currentPage={currentPage} setFavorites={setFavorites} playlists={playlists} createPlaylist={createPlaylist} onAddSongToPlaylist={addSongToPlaylist} setCurrectSong={setCurrectSong} setIsPlaying={setIsPlaying} setQueueSongs={setQueueSongs} />
         </div >
+
     )
 }
 
