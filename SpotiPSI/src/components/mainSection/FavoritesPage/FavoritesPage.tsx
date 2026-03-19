@@ -1,6 +1,6 @@
 import useStyles from "./FavoritesPageStyles";
 import SongsTable from "../songsTable/SongsTable";
-import type { Song, Playlist } from "../../../../types/types";
+import type { Song, Playlist } from "../../../types/types";
 
 const pageTitle = "המועדפים שלי";
 

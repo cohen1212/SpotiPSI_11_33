@@ -1,12 +1,12 @@
 import * as React from 'react';
 import useStyles from "./SongItemStyles";
-import type { Song, Playlist } from "../../../../../types/types";
+import type { Song, Playlist } from "../../../../types/types";
 import { ListItem, ListItemText, IconButton, Menu, MenuItem } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { fetchPostFavorites } from "../../../../../api/api";
+import { fetchPostFavorites } from "../../../../api/api";
 
 interface Props {
     song: Song;
@@ -75,6 +75,7 @@ const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylis
                     anchorEl={anchorEl}
                     open={open}
                     onClose={handleMenuClose}
+                    className={classes.menu}
                 >
                     {playlists.map((playlist) => (
                         <MenuItem
@@ -87,7 +88,7 @@ const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylis
                 </Menu>
 
                 <IconButton onClick={changeFavorite}>
-                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    {isFavorite ? <FavoriteIcon sx={{ color: "#9D55BB" }} /> : <FavoriteBorderIcon />}
                 </IconButton>
             </ListItem>
         </div>

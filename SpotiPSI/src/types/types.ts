@@ -5,8 +5,6 @@ export type Song = {
     album: string;
 };
 
-export type Page = "allSongs" | "playlists" | "favorites";
-
 export interface Playlist {
     id: string;
     name: string;

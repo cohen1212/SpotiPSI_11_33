@@ -32,19 +32,21 @@ export const postPlaylist = async (name: string) => {
 };
 
 export const fetchPostFavorites = async (urlAddition: string, song: Song) => {
-  fetch(`${urlBase}${favoritesApi}${urlAddition}`, {
+  const response = await fetch(`${urlBase}${favoritesApi}${urlAddition}`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       songId: song.id,
     }),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
-  })
+  });
 
-    .then(response => response.json())
+  if (!response.ok) {
+    throw new Error("Failed to update favorites");
+  }
 
-    .then(json => console.log(json));
+  return response.json();
 };
 
 export const postSongToPlaylist = async (songId: string, playlistId: string) => {

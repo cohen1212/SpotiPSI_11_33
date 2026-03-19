@@ -1,5 +1,5 @@
 import useStyles from "./AllSongsPageStyles";
-import type { Song, Playlist } from "../../../../types/types";
+import type { Song, Playlist } from "../../../types/types";
 import SongsTable from "../songsTable/SongsTable";
 
 const pageTitle = "כל השירים";
