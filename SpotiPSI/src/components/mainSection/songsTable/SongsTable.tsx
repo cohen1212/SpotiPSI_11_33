@@ -8,11 +8,10 @@ interface Props {
     favorites: string[]
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
-    createAudio: (song: Song) => void;
     playAudio: (song: Song) => void;
 }
 
-const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist, createAudio, playAudio }: Props) => {
+const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist, playAudio }: Props) => {
     return (
         <List>
             {songs.map((song) => (
@@ -23,7 +22,6 @@ const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlay
                     favorites={favorites}
                     playlists={playlists}
                     onAddSongToPlaylist={onAddSongToPlaylist}
-                    createAudio={createAudio}
                     playAudio={playAudio}
                 />
             ))}

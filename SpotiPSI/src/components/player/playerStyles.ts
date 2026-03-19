@@ -47,6 +47,14 @@ const useStyles = makeStyles()(() => ({
             height: "15px",
         },
     },
+
+    timesContainer: {
+        display: "flex",
+        width: "98%",
+        justifyContent: "space-between",
+        color: "white",
+        marginBottom: "10px",
+    },
 }));
 
 export default useStyles;

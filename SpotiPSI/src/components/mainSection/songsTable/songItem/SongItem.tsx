@@ -14,11 +14,10 @@ interface Props {
     favorites: string[];
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
-    createAudio: (song: Song) => void;
     playAudio: (song: Song) => void;
 }
 
-const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylist , createAudio, playAudio}: Props) => {
+const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylist, playAudio }: Props) => {
     const { classes } = useStyles();
     const isFavorite = favorites.includes(song.id);
 
@@ -59,8 +58,8 @@ const SongItem = ({ song, setFavorites, favorites, playlists, onAddSongToPlaylis
             console.error(error);
         }
     };
-    const playSong =  () => {
-       playAudio(song);
+    const playSong = () => {
+        playAudio(song);
     };
 
     return (

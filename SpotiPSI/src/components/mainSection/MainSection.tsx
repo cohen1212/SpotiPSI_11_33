@@ -17,11 +17,10 @@ interface Props {
     playlists: Playlist[];
     createPlaylist: (playlistName: string) => Promise<void>;
     addSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
-    createAudio: (song: Song) => void;
     playAudio: (song: Song) => void;
 }
 
-const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist, addSongToPlaylist ,createAudio,playAudio}: Props) => {
+const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist, addSongToPlaylist, playAudio }: Props) => {
     const { classes } = useStyles();
 
 
@@ -40,7 +39,6 @@ const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist
                                 setFavorites={setFavorites}
                                 playlists={playlists}
                                 onAddSongToPlaylist={addSongToPlaylist}
-                                createAudio={createAudio}
                                 playAudio={playAudio}
                             />
                         }
@@ -55,6 +53,7 @@ const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist
                                 setFavorites={setFavorites}
                                 playlists={playlists}
                                 onAddSongToPlaylist={addSongToPlaylist}
+                                playAudio={playAudio}
                             />
                         }
                     />
@@ -78,6 +77,7 @@ const MainSection = ({ songs, favorites, setFavorites, playlists, createPlaylist
                                 favorites={favorites}
                                 setFavorites={setFavorites}
                                 onAddSongToPlaylist={addSongToPlaylist}
+                                playAudio={playAudio}
                             />
                         }
                     />

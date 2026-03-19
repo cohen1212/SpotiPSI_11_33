@@ -35,8 +35,16 @@ const usePlayLogic = (songs: Song[]): ReturnObj => {
     }
 
     useEffect(() => {
-        isPlaying ? audioRef.current?.play() : audioRef.current?.pause()
-    }, [isPlaying]);
+        if (!audioRef.current) {
+            return;
+        }
+
+        if (isPlaying) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isPlaying, currentSong]);
 
     const createAudio = (song: Song) => {
         if (audioRef.current) {

@@ -7,7 +7,7 @@ import usePlayLogic from "./hooks/usePlayLogic";
 
 const App = () => {
   const { songs, favorites, playlists, setFavorites, createPlaylist, addSongToPlaylist } = useAppHandler();
-  const { currentSong, isPlaying, currentTime, duration, playAudio, playNext, playPrevious, togglePlayPause ,createAudio} = usePlayLogic(songs);
+  const { currentSong, isPlaying, currentTime, duration, playAudio, playNext, playPrevious, togglePlayPause } = usePlayLogic(songs);
   return (
     <>
       <Header />
@@ -19,11 +19,18 @@ const App = () => {
         playlists={playlists}
         createPlaylist={createPlaylist}
         addSongToPlaylist={addSongToPlaylist}
-        createAudio={createAudio}
         playAudio={playAudio}
       />
 
-      <Player playNext={playNext} playPrevious={playPrevious} togglePlayPause={togglePlayPause} isPlaying={isPlaying}/>
+      <Player
+        currentSong={currentSong}
+        isPlaying={isPlaying}
+        currentTime={currentTime}
+        duration={duration}
+        playNext={playNext}
+        playPrevious={playPrevious}
+        togglePlayPause={togglePlayPause}
+      />
     </>
   );
 };

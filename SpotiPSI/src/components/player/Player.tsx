@@ -4,34 +4,43 @@ import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import useStyles from "./playerStyles";
-import { useState } from "react";
+import type { Song } from "../../types/types";
 
 const emptyPlayerText = "נגן שירים";
+
 interface Props {
+    currentSong: Song | null,
+    isPlaying: boolean,
+    currentTime: number,
+    duration: number,
     playNext: () => void;
     playPrevious: () => void;
     togglePlayPause: () => void;
-    isPlaying: boolean
-    
 }
-const Player = ( {playNext ,playPrevious , togglePlayPause , isPlaying}:Props) => {
+
+const Player = ({ currentSong, isPlaying, currentTime, duration, playNext, playPrevious, togglePlayPause }: Props) => {
     const { classes } = useStyles();
 
-    const handlePlayToggle = () => {
-        togglePlayPause()
-    
+    const formatTime = (time: number) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
     };
+
+    const playerText = currentSong ?
+        `${currentSong.name} - ${currentSong.artist}` : emptyPlayerText
 
     return (
         <footer className={classes.player}>
-            <p className={classes.text}>{emptyPlayerText}</p>
+            <p className={classes.text}>{playerText}</p>
 
             <div className={classes.playerBtns}>
                 <IconButton onClick={playNext}>
                     <SkipNextIcon fontSize="large" />
                 </IconButton>
 
-                <IconButton onClick={handlePlayToggle}>
+                <IconButton onClick={togglePlayPause}>
                     {isPlaying ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
                 </IconButton>
 
@@ -42,11 +51,16 @@ const Player = ( {playNext ,playPrevious , togglePlayPause , isPlaying}:Props) =
 
             <Slider
                 className={classes.slider}
-                value={0}
+                value={currentTime}
                 min={0}
-                max={100}
+                max={duration}
                 color="secondary"
             />
+
+            <div className={classes.timesContainer}>
+                <span>{formatTime(duration - currentTime)}</span>
+                <span>{formatTime(currentTime)}</span>
+            </div>
         </footer>
     );
 };
