@@ -5,7 +5,7 @@ const useStyles = makeStyles()(() => ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        height: "10%",
+        minHeight: "10%",
         backgroundColor: "#1D1D1D",
         alignItems: "center",
         justifyContent: "center"
@@ -46,6 +46,14 @@ const useStyles = makeStyles()(() => ({
             width: "15px",
             height: "15px",
         },
+    },
+
+    timesContainer: {
+        display: "flex",
+        width: "98%",
+        justifyContent: "space-between",
+        color: "white",
+        marginBottom: "10px",
     },
 }));
 

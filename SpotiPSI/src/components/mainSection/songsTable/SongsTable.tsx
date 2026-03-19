@@ -8,13 +8,22 @@ interface Props {
     favorites: string[]
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    playAudio: (song: Song) => void;
 }
 
-const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist }: Props) => {
+const SongsTable = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist, playAudio }: Props) => {
     return (
         <List>
             {songs.map((song) => (
-                <SongItem key={song.id} song={song} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
+                <SongItem
+                    key={song.id}
+                    song={song}
+                    setFavorites={setFavorites}
+                    favorites={favorites}
+                    playlists={playlists}
+                    onAddSongToPlaylist={onAddSongToPlaylist}
+                    playAudio={playAudio}
+                />
             ))}
         </List>
     );

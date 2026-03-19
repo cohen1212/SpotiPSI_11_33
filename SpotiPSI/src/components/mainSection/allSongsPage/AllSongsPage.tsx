@@ -10,15 +10,23 @@ interface Props {
     favorites: string[]
     playlists: Playlist[];
     onAddSongToPlaylist: (songId: string, playlistId: string) => Promise<void>;
+    playAudio: (song: Song) => void;
 }
 
-const AllSongsPage = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist }: Props) => {
+const AllSongsPage = ({ songs, setFavorites, favorites, playlists, onAddSongToPlaylist, playAudio }: Props) => {
     const { classes } = useStyles();
 
     return (
         <div className={classes.allSongsContainer}>
             <h1>{pageTitle}</h1>
-            <SongsTable songs={songs} setFavorites={setFavorites} favorites={favorites} playlists={playlists} onAddSongToPlaylist={onAddSongToPlaylist} />
+            <SongsTable
+                songs={songs}
+                setFavorites={setFavorites}
+                favorites={favorites}
+                playlists={playlists}
+                onAddSongToPlaylist={onAddSongToPlaylist}
+                playAudio={playAudio}
+            />
         </div>
     );
 };
