@@ -10,9 +10,42 @@ const useStyles = makeStyles()(() => ({
         alignItems: "center",
         justifyContent: "center"
     },
+
+    playerBtns: {
+        "& .MuiSvgIcon-root": {
+            color: "white",
+
+        },
+
+        "& .MuiButtonBase-root": {
+            color: "white",
+            padding: "10px",
+            borderRadius: "30px",
+            margin: "0 10px"
+        },
+
+        "& .MuiButtonBase-root:hover": {
+            backgroundColor: "#121212",
+        },
+
+    },
+
     text:
     {
         color: "white"
+    },
+
+    slider: {
+        width: "98%",
+
+        "& .MuiSlider-rail": {
+            color: "gray"
+        },
+
+        "& .MuiSlider-thumb": {
+            width: "15px",
+            height: "15px",
+        },
     },
 }));
 
