@@ -1,0 +1,66 @@
+import type { Song } from "../types/types";
+
+const urlBase = "http://localhost:5001/api";
+const postPlaylistApi = "/playlists";
+const favoritesApi = "/favorites";
+const addToPlaylistApi = "/add";
+
+export const fetchServer = async (urlAddition: string) => {
+  const response = await fetch(`${urlBase}${urlAddition}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch songs");
+  }
+
+  return response.json();
+};
+
+export const postPlaylist = async (name: string) => {
+  const res = await fetch(`${urlBase}${postPlaylistApi}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to create playlist");
+  }
+
+  return res.json();
+};
+
+export const fetchPostFavorites = async (urlAddition: string, song: Song) => {
+  const response = await fetch(`${urlBase}${favoritesApi}${urlAddition}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      songId: song.id,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update favorites");
+  }
+
+  return response.json();
+};
+
+export const postSongToPlaylist = async (songId: string, playlistId: string) => {
+  const res = await fetch(`${urlBase}${postPlaylistApi}/${playlistId}${addToPlaylistApi}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ songId }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to add song to playlist");
+  }
+
+  return res.json();
+};
