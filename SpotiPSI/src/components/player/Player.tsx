@@ -11,10 +11,10 @@ interface Props {
     playNext: () => void;
     playPrevious: () => void;
     togglePlayPause: () => void;
-    isPlay: boolean
+    isPlaying: boolean
     
 }
-const Player = ( {playNext ,playPrevious , togglePlayPause , isPlay}:Props) => {
+const Player = ( {playNext ,playPrevious , togglePlayPause , isPlaying}:Props) => {
     const { classes } = useStyles();
 
     const handlePlayToggle = () => {
@@ -32,7 +32,7 @@ const Player = ( {playNext ,playPrevious , togglePlayPause , isPlay}:Props) => {
                 </IconButton>
 
                 <IconButton onClick={handlePlayToggle}>
-                    {isPlay ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
+                    {isPlaying ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
                 </IconButton>
 
                 <IconButton onClick={playPrevious}>
